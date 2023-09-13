@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% load templ_tags %}
+
+{% block title %}
+My Notes
+{% endblock %}
+
+{% block content %}
+<div class="p-5 pt-3 pb-0 bg-body-tertiary bg-light rounded-3" bis_skin_checked="1">
+    <div class="container-fluid py-5" bis_skin_checked="1">
+        <h1 class="display-5 fw-bold text-primary">
+            <a href="{% url 'notes_app:my_notes' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                     class="bi bi-card-checklist" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+                </svg></a>
+            My Notes App
+        </h1>
+        <p class="col-md-8 fs-4">Here I will be adding my notes on programming with Python and Django</p>
+
+        {% if user.is_authenticated %}
+        <h3>Hi, {{ user }}</h3>
+        <hr/>
+
+        <a href="{% url 'notes_app:add_note' %}" class="btn btn-primary btn-lg" type="button">Add A Note</a>
+
+        <button class="btn btn-success btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if current_category %}
+            {{ current_category }}
+            {% else %}
+            Select Category
+            {% endif %}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for category in categories %}
+            <a href="{% url 'notes_app:filter_notes' category=category.name %}" class="dropdown-item">
+                {{ category.name }}</a>
+            {% endfor %}
+            <a href="{% url 'notes_app:index' %}" class="dropdown-item">View All</a>
+        </div>
+
+        {% if current_category %}
+        <button class="btn btn-warning btn-lg dropdown-toggle" type="button" id="dropdownDone"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Status
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownDone">
+            <a href="{% url 'notes_app:filter_notes' category=current_category done='done' %}" class="dropdown-item">Done</a>
+            <a href="{% url 'notes_app:filter_notes' category=current_category done='pending' %}" class="dropdown-item">Pending</a>
+        </div>
+        {% endif %}
+
+        <a href="{% url 'user_profile:logout' %}" class="btn btn-danger btn-lg">Logout</a>
+        {% endif %}
+    </div>
+
+</div>
+<div class="p-5 pt-0 mb-2 bg-body-tertiary rounded-3" bis_skin_checked="1">
+    <div class="container-fluid py-5" bis_skin_checked="1">
+        <h1 class="display-5 fw-bold">Current Notes</h1>
+        {% if user.is_authenticated %}
+        {% if all_notes %}
+        {% for note in all_notes %}
+
+        <h3>{{ note.title|replace_tag:'shit' }} <small class="text-muted">#{{ note.id }}</small></h3>
+        <small class="text-muted">Posted in <a href="{% url 'notes_app:filter_notes' category=note.category %}">
+            {{ note.category }}</a>
+            by {{ note.posted_by }}
+            on {{ note.date }} {{ note.time }}
+            ({% comment_count note %} Comments)
+            <a href="{% url 'notes_app:update_note' note_id=note.id %}">Edit</a></small>
+        <small><a href="{% url 'notes_app:delete_note' note_id=note.id %}" class="text-danger">Delete</a></small>
+        <p>{{ note.note }}</p>
+        <a class="btn btn-outline-primary btn-sm" href="{% url 'notes_app:note' note_id=note.id %}">View Note ↗</a>
+        {% if note.done %}
+        <a class="btn btn-outline-danger btn-sm" href="{% url 'notes_app:update_note_done' note_id=note.id %}">Undo</a>
+        The task was done!
+        {% else %}
+        <a class="btn btn-outline-success btn-sm" href="{% url 'notes_app:update_note_done' note_id=note.id %}">Mark
+            done</a>
+        {% endif %}
+        <hr/>
+        {% endfor %}
+
+        {% if all_notes.has_other_pages %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+
+                {% if all_notes.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ all_notes.previous_page_number }}">Previous</a></li>
+                {% else %}
+                <li class="disabled page-item"><a class="page-link"><span>Previous</span></a></li>
+                {% endif %}
+
+                {% for i in all_notes.paginator.page_range %}
+                {% if all_notes.number == i %}
+                <li class="active page-item"><a class="page-link"><span>{{ i }}</span></a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if all_notes.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ all_notes.next_page_number }}">Next</a></li>
+                {% else %}
+                <li class="disabled page-item"><a class="page-link"><span>Next</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+        {% else %}
+        <p>Nothing here..</p>
+        {% endif %}
+        {% else %}
+        <p>Notes available only to logged in users. Please <a href="{% url 'user_profile:login' %}">login</a> or
+            <a href="{% url 'user_profile:register' %}">register</a>.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

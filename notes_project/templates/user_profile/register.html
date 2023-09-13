@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="p-5 pt-3 pb-0 bg-body-tertiary bg-light rounded-3" bis_skin_checked="1">
+    <div class="container-fluid py-5" bis_skin_checked="1">
+        <a value="Go Back" class="btn btn-secondary mb-3" onClick="javascript:history.go(-1);">← Go Back</a>
+        {% if registered %}
+        <h1 class="display-5 fw-bold text-primary">Thank you for registering!</h1>
+        {% else %}
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {% include 'forms_template.html' with form=user_form %}
+            {% include 'forms_template.html' with form=profile_form %}
+            <input type="submit" class="btn btn-primary btn-lg">
+        </form>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+
+7
+main.py,f\1\f1bdda93d9a278e358509d498e17d97764c1fb29
+S
+#notes_project/notes_project/urls.py,a\5\a5628c2e221dc36b41d345a453941c24b1df8429
+P
+ notes_project/notes_app/admin.py,e\7\e7602b1a0e5590629b684c240c9a501aab74c2e4
+I
+notes_project/populate.py,c\6\c65d1f286c5baefcce49a5ba936fa84caf49b737
+Q
+!notes_project/notes_app/models.py,0\6\06aa6ad0a3d370b966487328c3fe5b89f2fc0c7e
+P
+ notes_project/notes_app/forms.py,c\f\cfb44646fff7b6bc2eb7e4600a20aceea739776e
+O
+notes_project/notes_app/urls.py,2\1\2147abdc00d11d654e18f52bfcbeed7cd0b454ea
+W
+'notes_project/notes_project/settings.py,d\d\dda3a7bcb25ddfa8a441773d87ca534373620f8f
+[
++notes_project/templates/forms_template.html,7\3\73f2e8853f4b91c6375f2f192c0f2f9e476d4d45
+P
+ notes_project/notes_app/views.py,0\b\0b34d0b2fd6de684e44c94f0a71e3f038cae2c1f
+_
+/notes_project/templates/notes_app/add_note.html,f\5\f50888b1f9f79c4c1431dd30663534c9814e1df4
+b
+2notes_project/templates/notes_app/update_note.html,c\5\c5997ec2eaa921f395c04b784d5c9f115e7f66b4
+b
+2notes_project/templates/notes_app/delete_note.html,a\4\a4aaf3931e502382c6f5e1f4bb249013097b642f
+_
+/notes_project/templates/notes_app/my_notes.html,1\d\1deb86596a816ea55400ebd6874f6621b3dfc735
+Q
+!notes_project/templates/base.html,9\c\9c1edf67c0bdc3bfe1b38ba46cd7a3632e38496c
+X
+(notes_project/fix_categories_in_notes.py,d\2\d20bb3169331d492506681f54a58c793fe01dba5
+`
+0notes_project/notes_app/templatetags/__init__.py,0\4\04bf5c22445538b9ae5758b9976299a08de649a9
+b
+2notes_project/notes_app/templatetags/templ_tags.py,c\7\c7b65c559c35753a10003b14c62c139a00d5ceeb
+b
+2notes_project/templates/notes_app/single_note.html,1\7\17deaf81978def23dbcf2b61b4fa65bdbfb5f3d3
+T
+$notes_project/user_profile/models.py,c\8\c83515276dc4653503abe62c4c9ee37f1bed7319
+S
+#notes_project/user_profile/forms.py,7\4\74a81f3364c1b11a37beb49697163abb0d83e175
+S
+#notes_project/user_profile/admin.py,0\8\0839786761426ab181a8aa1221f6793223d70fe1
+S
+#notes_project/user_profile/views.py,7\b\7bc06dcd957a0bf30f43058ebf2cceab5dc3782d
+c
+3notes_project/templates/user_profile/all_users.html,d\a\dacfe1a5a47daf9dbca03b2974b9094cde50d7c8
+R
+"notes_project/user_profile/urls.py,3\0\302a0606979969592f14099b69e0a7da2392b39a
+_
+/notes_project/templates/user_profile/login.html,9\4\9465baa6d76cc2c534d14f5a75ac80b0b837df6a
+b
+2notes_project/templates/user_profile/register.html,a\e\ae36f1ef6ccff24de15fcee1a3e34ce3302bb695

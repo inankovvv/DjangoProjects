@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add New Note
+{% endblock %}
+
+{% block content %}
+<div class="p-5 pt-3 pb-1 mb-1 bg-body-tertiary rounded-3" bis_skin_checked="1">
+    <div class="container-fluid py-5" bis_skin_checked="1">
+        <h1 class="display-5 fw-bold text-danger">Delete Note?</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <p>Are you sure you want to delete <b>Note #{{ note.id }}</b>?</p>
+            <p>Details: <b>{{ note.title }}</b> - <span class="text-muted">{{ note.note }}</span></p>
+            <p><input type="submit" class="btn btn-primary btn-lg" value="Yes">
+            <a href="/" class="btn btn-lg btn-danger">Cancel</a></p>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="p-5 pt-3 pb-0 bg-body-tertiary bg-light rounded-3" bis_skin_checked="1">
+    <div class="container-fluid py-5" bis_skin_checked="1">
+        <a value="Go Back" class="btn btn-secondary mb-3" onClick="javascript:history.go(-1);">← Go Back</a>
+        <h1>Login</h1>
+        <form action="{% url 'user_profile:login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

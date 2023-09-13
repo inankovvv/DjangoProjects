@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load templ_tags %}
+
+{% block title %}Single Note{% endblock %}
+
+{% block content %}
+
+<div class="p-5 pt-0 mb-2 bg-body-tertiary rounded-3" bis_skin_checked="1">
+    <div class="container-fluid py-5" bis_skin_checked="1">
+        <a href="{% url 'notes_app:index' %}" class="btn btn-primary mb-3">← All Notes</a>
+        <h1>{{ note.title|replace_tag:'shit' }} <small class="text-muted">#{{ note.id }}</small>
+        </h1>
+        <div class="text-muted">Posted in: <a href="{% url 'notes_app:filter_notes' category=note.category %}">{{ note.category }}</a>
+            by {{ note.posted_by }}
+            on {{ note.date }} {{ note.time }} <a
+                href="{% url 'notes_app:update_note' note_id=note.id %}">Edit</a> <a
+                href="{% url 'notes_app:delete_note' note_id=note.id %}" class="text-danger">Delete</a></div>
+        <hr>
+        <p class="mb-3">{{ note.note }}</p>
+        {% if note.done %}
+        <a class="btn btn-outline-danger btn-sm" href="{% url 'notes_app:update_note_done' note_id=note.id %}">Undo</a>
+        The task was done!
+        {% else %}
+        <a class="btn btn-outline-success btn-sm" href="{% url 'notes_app:update_note_done' note_id=note.id %}">Mark
+            done</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="p-5 pt-3 pb-1 bg-body-tertiary bg-light rounded-3" bis_skin_checked="1">
+    <div class="container-fluid py-5" bis_skin_checked="1">
+        <h3>{{ all_comments|length }} Comments:</h3>
+        <hr/>
+        {% for comment in all_comments %}
+        <p><b>{{ comment.posted_by }}:</b> {{ comment.comment }}</p>
+        {% endfor %}
+        <form method="POST" class="mt-1">
+            {% csrf_token %}
+            {% include 'forms_template.html' with form=comment_form %}
+            <input type="submit" class="btn btn-primary btn-lg" value="Comment">
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
